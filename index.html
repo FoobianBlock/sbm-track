@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.s-bahn-muenchen-magazin.de/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://www.s-bahn-muenchen-magazin.de/images/favicon-32.png">
+    <title>S-Bahn München Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div style="background-image: url('img/banner.jpg'); background-size:cover; background-position-y:54%; top:0px; margin:0; position: sticky; box-shadow: 0px 1px 5px black; display:block; height:110px;">
+        <h1 style="padding: 10px; margin:0px; text-shadow: 1px 1px 5px black; display:inline-block;">S-Bahn München Tracker</h1> 
+            <i class="status" style="display:inline-block; text-shadow: 1px 1px 5px black;">Connecting...</i>
+        <h5 style="padding-left: 10px; margin:0px; text-shadow: 1px 1px 5px black;">Filters:</h3>
+        <input type="search" class="searchBar" placeholder="Search for UIC number..." style="width:200px; margin-left:10px; margin-bottom:5px;" onkeyup="filter()">
+        <select class="tenantFilterDropdown" onchange="filter()">
+            <option value="">All tenets</option>
+            <option value="sbm">S-Bahn München</option>
+            <option value="sbh">S-Bahn Hamburg</option>
+        </select>
+    </div>
+    <div class="results">
+        
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
