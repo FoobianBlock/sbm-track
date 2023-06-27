@@ -93,7 +93,7 @@ function drawTrain(train) {
     {
       imageContent = "<img src=\"img/50jahreSBM.png\" alt=\"50 Jahre S-Bahn München Logo\" style=\"float:right; margin: 15px\" class=\"logo\">"
     }
-    else if(properties.rake.includes("948004232286"))
+    else if(properties.rake.includes("948004232864"))
     {
       imageContent = "<img src=\"img/423286_Icon.png\" alt=\"Diversity S-Bahn\" style=\"height: 400px; float:right; margin: 10px;\" class=\"logo\">"
     }
@@ -138,7 +138,7 @@ function drawTrain(train) {
     </div>
   </div><br>`;
 
-  if(properties.rake != null && (properties.rake.includes("948004231833") || properties.rake.includes("948004232286")))
+  if(properties.rake != null && (properties.rake.includes("948004231833") || properties.rake.includes("948004232864")))
     document.getElementsByClassName("results")[0].innerHTML = content + document.getElementsByClassName("results")[0].innerHTML;
   else
     document.getElementsByClassName("results")[0].innerHTML = document.getElementsByClassName("results")[0].innerHTML + content;
