@@ -134,9 +134,12 @@ function drawTrain(train) {
       <b>position_correction:</b> ${properties.position_correction} <br>
       <b>event:</b> ${eventDecode} <br>
       <b>ride_state:</b> ${properties.ride_state} <br>
-      <b>event_delay:</b> ${properties.event_delay} <br>
+      <b>event_delay:</b> ${properties.event_delay} <br><br>
+      <a href='https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}'><i>Open in webFIS</i></a>
     </div>
   </div><br>`;
+
+  console.log(properties.tenant);
 
   if(properties.rake != null && (properties.rake.includes("948004231833") || properties.rake.includes("948004232864")))
     document.getElementsByClassName("results")[0].innerHTML = content + document.getElementsByClassName("results")[0].innerHTML;
@@ -152,11 +155,11 @@ function filter() {
   console.log(tenantFilter);
 
   trains.forEach(e => {
-    if(e.rake != null && e.rake.includes(search)) {
+    if(e.rake != null && (e.rake === null | e.rake.includes(search))) {
       if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
         drawTrain(e);
       }
-    } else if(e.propertiesJson.transmitting_vehicle != null && e.propertiesJson.transmitting_vehicle.includes(search)) {
+    } else if(search === "") {
       if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
         drawTrain(e);
       }
