@@ -12,7 +12,7 @@ let trains = [];
 
 socket.onopen = function(e) {
   statusText.innerHTML = "Connected";
-  socket.send("GET trajectory");
+  socket.send("BBOX -20037508.34 -20048966.1 20037508.34 20048966.1 10");
 };
   
 socket.onmessage = function(event) {
