@@ -42,6 +42,12 @@ socket.onerror = function(error) {
   alert(`[error] ${error.message}`);
 };
 
+function forceUpdate() {
+  trains.forEach((value, key) => {
+    drawTrain(value);
+  });
+}
+
 function drawTrain(train) {
   var properties = train.propertiesJson;
 
@@ -117,7 +123,7 @@ function drawTrain(train) {
       document.getElementsByClassName("results")[0].append(container);
   }
 
-  let content = `<div class="trainEntryDiv" id="${properties.train_id}" style="background-color:${lineCol}; color:${textCol}; word-wrap:anywhere; padding:10px; margin:10px;">
+  let content = `<div class="trainEntryDiv" id="${properties.train_id}" style="background-color:${lineCol}; color:${textCol}; display:${filter(properties.train_id) ? "" : "none"}; word-wrap:anywhere; padding:10px; margin:10px;">
   <div style="padding:0px; margin:0px;">
       ${imageContent}
       <b>rake:</b> ${properties.rake} <br>
@@ -151,26 +157,25 @@ function drawTrain(train) {
     </div>
   </div>`;
 
-  container.outerHTML= content;
+  container.outerHTML = content;
   console.log(properties.tenant);
 }
 
-function filter() {
+function filter(id) {
   var search = document.getElementsByClassName("searchBar")[0].value;
   var tenantFilter = document.getElementsByClassName("tenantFilterDropdown")[0].value;
-  document.getElementsByClassName("results")[0].innerHTML = '';
 
-  console.log(tenantFilter);
+  const e = trains.get(id);
 
-  trains.forEach((e, id) => {
-    if(e.rake != null && (e.rake === null | e.rake.includes(search))) {
-      if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
-        drawTrain(e);
-      }
-    } else if(search === "") {
-      if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
-        drawTrain(e);
-      }
+  if(e.rake != null && (e.rake === null | e.rake.includes(search))) {
+    if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
+      return true;
     }
-  });
+  } else if(search === "") {
+    if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
+      return true;
+    }
+  }
+
+  return false;
 }
