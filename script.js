@@ -151,26 +151,27 @@ function drawTrain(train) {
     </div>
   </div>`;
 
+  container.style.display = filter(properties.train_id) ? "" : "none";
+
   container.outerHTML= content;
   console.log(properties.tenant);
 }
 
-function filter() {
+function filter(id) {
   var search = document.getElementsByClassName("searchBar")[0].value;
   var tenantFilter = document.getElementsByClassName("tenantFilterDropdown")[0].value;
-  document.getElementsByClassName("results")[0].innerHTML = '';
 
-  console.log(tenantFilter);
+  e = trains.get(id);
 
-  trains.forEach((e, id) => {
-    if(e.rake != null && (e.rake === null | e.rake.includes(search))) {
-      if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
-        drawTrain(e);
-      }
-    } else if(search === "") {
-      if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
-        drawTrain(e);
-      }
+  if(e.rake != null && (e.rake === null | e.rake.includes(search))) {
+    if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
+      return true;
     }
-  });
+  } else if(search === "") {
+    if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
+      return true;
+    }
+  }
+
+  return false;
 }
