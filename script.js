@@ -1,3 +1,5 @@
+let drawDebugStyle = true;
+
 class trainEntry {
   constructor(rake, propertiesJson)  {
     this.rake = rake;
@@ -19,7 +21,7 @@ socket.onopen = function(e) {
 socket.onmessage = function(event) {
   var wsContent = JSON.parse(event.data).content;
   
-  if(wsContent.properties != undefined) {
+  if(wsContent && wsContent.properties != undefined) {
     var train = new trainEntry(wsContent.properties.rake, wsContent.properties);
     trains.set(wsContent.properties.train_id, train);
     drawTrain(train);
@@ -46,6 +48,11 @@ function forceUpdate() {
   trains.forEach((value, key) => {
     drawTrain(value);
   });
+}
+
+function updateTrainEntryStyle() {
+  drawDebugStyle = document.getElementById("debugStyle").checked
+  forceUpdate();
 }
 
 function drawTrain(train) {
@@ -123,39 +130,51 @@ function drawTrain(train) {
       document.getElementsByClassName("results")[0].append(container);
   }
 
-  let content = `<div class="trainEntryDiv" id="${properties.train_id}" style="background-color:${lineCol}; color:${textCol}; display:${filter(properties.train_id) ? "" : "none"}; word-wrap:anywhere; padding:10px; margin:10px;">
-  <div style="padding:0px; margin:0px;">
-      ${imageContent}
-      <b>rake:</b> ${properties.rake} <br>
-      <b>line:</b> ${JSON.stringify(properties.line)} <br>
-      <b>coordinates:</b> ${coordContent}
-      <br>
-      <br>
-      <b>train_number:</b> ${properties.train_number} <br>
-      <b>train_id:</b> ${properties.train_id} <br>
-      <b>event_timestamp:</b> ${properties.event_timestamp} <br>
-      <b>timestamp:</b> ${properties.timestamp} <br>
-      <b>state:</b> ${properties.state} <br>
-      <b>time_since_update:</b> ${properties.time_since_update} <br>
-      <b>has_realtime:</b> ${realtime_text} <br>
-      <b>operator_provides_realtime_journey:</b> ${properties.operator_provides_realtime_journey} <br>
-      <b>has_journey:</b> ${properties.has_journey} <br>
-      <b>routeIdentifier:</b> ${properties.routeIdentifier} <br>
-      <b>delay:</b> ${properties.delay} <br>
-      <b>raw_time:</b> ${properties.raw_time} <br>
-      <b>tenant:</b> ${properties.tenant} <br>
-      <b>transmitting_vehicle:</b> ${properties.transmitting_vehicle} <br>
-      <b>vehicle_number:</b> ${properties.vehicle_number} <br>
-      <b>original_train_number:</b> ${properties.original_train_number} <br>
-      <b>original_rake:</b> ${properties.original_rake} <br>
-      <b>original_line:</b> ${properties.original_line} <br>
-      <b>position_correction:</b> ${properties.position_correction} <br>
-      <b>event:</b> ${eventDecode} <br>
-      <b>ride_state:</b> ${properties.ride_state} <br>
-      <b>event_delay:</b> ${properties.event_delay} <br><br>
-      <a href='https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}'><i>Open in webFIS</i></a>
-    </div>
-  </div>`;
+  let content = ``;
+  
+  if(drawDebugStyle) {
+    content = `<div class="trainEntryDiv" id="${properties.train_id}" style="background-color:${lineCol}; color:${textCol}; display:${filter(properties.train_id) ? "" : "none"};">
+    <div style="padding:0px; margin:0px;">
+        ${imageContent}
+        <b>rake:</b> ${properties.rake} <br>
+        <b>line:</b> ${JSON.stringify(properties.line)} <br>
+        <b>coordinates:</b> ${coordContent}
+        <br>
+        <br>
+        <b>train_number:</b> ${properties.train_number} <br>
+        <b>train_id:</b> ${properties.train_id} <br>
+        <b>event_timestamp:</b> ${properties.event_timestamp} <br>
+        <b>timestamp:</b> ${properties.timestamp} <br>
+        <b>state:</b> ${properties.state} <br>
+        <b>time_since_update:</b> ${properties.time_since_update} <br>
+        <b>has_realtime:</b> ${realtime_text} <br>
+        <b>operator_provides_realtime_journey:</b> ${properties.operator_provides_realtime_journey} <br>
+        <b>has_journey:</b> ${properties.has_journey} <br>
+        <b>routeIdentifier:</b> ${properties.routeIdentifier} <br>
+        <b>delay:</b> ${properties.delay} <br>
+        <b>raw_time:</b> ${properties.raw_time} <br>
+        <b>tenant:</b> ${properties.tenant} <br>
+        <b>transmitting_vehicle:</b> ${properties.transmitting_vehicle} <br>
+        <b>vehicle_number:</b> ${properties.vehicle_number} <br>
+        <b>original_train_number:</b> ${properties.original_train_number} <br>
+        <b>original_rake:</b> ${properties.original_rake} <br>
+        <b>original_line:</b> ${properties.original_line} <br>
+        <b>position_correction:</b> ${properties.position_correction} <br>
+        <b>event:</b> ${eventDecode} <br>
+        <b>ride_state:</b> ${properties.ride_state} <br>
+        <b>event_delay:</b> ${properties.event_delay} <br><br>
+        <a href='https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}'><i>Open in webFIS</i></a>
+      </div>
+    </div>`;
+  }
+  else {
+    content = `
+      <div class="trainEntryDiv" id="${properties.train_id}" style="display:${filter(properties.train_id) ? "" : "none"};">
+        ${properties.tenant} <br>
+        ${JSON.stringify(properties.line)} <b> ${properties.train_number} </b> ${properties.state} ${eventDecode} <br>
+        <b>timestamp:</b> ${new Date(properties.timestamp)} <br>
+      </div>`
+  }
 
   container.outerHTML = content;
   console.log(properties.tenant);
