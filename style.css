@@ -1,3 +1,7 @@
 body{font-family: sans-serif; padding: 0; margin: 0}
 
 .trainEntryDiv{word-wrap:anywhere; padding:10px; margin:10px; box-shadow: 0px 0px 10px black;}
+
+.trainNumber{font-size: larger; font-weight: bold; padding-left: 5px;}
+.trainState{padding: 5px}
+.trainEvent{background:#464646; border-radius: 5px; padding:3px; padding-left: 5px; padding-right: 5px;}

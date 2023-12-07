@@ -169,9 +169,9 @@ function drawTrain(train) {
   }
   else {
     content = `
-      <div class="trainEntryDiv" id="${properties.train_id}" style="display:${filter(properties.train_id) ? "" : "none"};">
+      <div class="trainEntryDiv" id="${properties.train_id}" style="display:${filter(properties.train_id) ? "" : "none"}; line-height: 150%;">
         ${properties.tenant} <br>
-        ${JSON.stringify(properties.line)} <b> ${properties.train_number} </b> ${properties.state} ${eventDecode} <br>
+        ${JSON.stringify(properties.line)} <span class="trainNumber"> ${properties.train_number} </span> <span class="trainState"> ${properties.state} </span> <span class="trainEvent"> ${eventDecode} </span> <br>
         <b>timestamp:</b> ${new Date(properties.timestamp)} <br>
       </div>`
   }
