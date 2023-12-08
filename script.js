@@ -168,16 +168,41 @@ function drawTrain(train) {
     </div>`;
   }
   else {
+    // TODO: Handle null line
+    // lineNumberFill default colour = #963833
+    lineNumberSvg = `
+      <svg class="lineNumber" style="display: table-cell;" xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1060 465">
+        <g>
+            <path id="lineNumberFill" fill="${properties.line.color}"
+                d="M 787.5,0 H 272.173 C 143.773,0 0,104.088 0,232.488 0,360.888 143.773,464.976 272.173,464.976 H 787.5 c 128.4,0 272.174,-104.088 272.174,-232.488 C 1059.674,104.088 915.901,0 787.5,0 Z"></path>
+            <text xml:space="preserve"
+                style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:483.517px;font-family:Arial;-inkscape-font-specification:'Arial, Heavy';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:middle;dominant-baseline:middle;display:table-cell;fill:${properties.line.text_color};"
+                x="530.66327" y="280.17865" id="lineNumberText"><tspan x="530.66327" y="280.17865">${properties.line.name}</tspan></text>
+        </g>
+      </svg>`;
+
+    tenantContent = "";
+    switch (properties.tenant) {
+      case "sbm":
+        tenantContent =  `S-Bahn München`
+        break;
+    
+      default:
+        tenantContent = properties.tenant
+        break;
+    }
+
     content = `
       <div class="trainEntryDiv" id="${properties.train_id}" style="display:${filter(properties.train_id) ? "" : "none"}; line-height: 150%;">
-        ${properties.tenant} <br>
-        ${JSON.stringify(properties.line)} <span class="trainNumber"> ${properties.train_number} </span> <span class="trainState"> ${properties.state} </span> <span class="trainEvent"> ${eventDecode} </span> <br>
+        <i> ${tenantContent} </i> <br>
+        <div style="display:flex; align-items:center"> ${lineNumberSvg} <span class="trainNumber"> ${properties.train_number} </span> <span class="trainState"> ${properties.state} </span> <span class="trainEvent"> ${eventDecode} </span> </div>
         <b>timestamp:</b> ${new Date(properties.timestamp)} <br>
-      </div>`
+      </div>`;
   }
 
   container.outerHTML = content;
-  console.log(properties.tenant);
+  // console.log(properties.tenant);
 }
 
 function filter(id) {
