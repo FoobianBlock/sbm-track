@@ -76,7 +76,8 @@ body {
 }
 
 .trainEvent {
-    background: #464646;
+    background: var(--color-db-cool-grey-600);
+    color: white;
     border-radius: 5px;
     padding: 3px;
     padding-left: 5px;
