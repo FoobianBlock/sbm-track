@@ -176,7 +176,7 @@ function drawTrain(train) {
       properties.line.name;
 
     lineNumberSvg = `
-      <svg class="lineNumber" style="display: table-cell;" xmlns="http://www.w3.org/2000/svg"
+      <svg class="lineNumber" alt="${lineName}" style="display: table-cell;" xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 1060 465">
         <g>
             <path id="lineNumberFill" fill="${lineColor}"
@@ -192,17 +192,33 @@ function drawTrain(train) {
       case "sbm":
         tenantContent =  `S-Bahn München`
         break;
-    
       default:
         tenantContent = properties.tenant
         break;
     }
 
+    let formationContent = "";
+    if(properties.rake != null) {
+      properties.rake.split(";").forEach(element => {
+        
+      });
+    }
+
+    let openInContent = "";
+    if(properties.raw_coordinates != null) {
+      openInContent = openInContent + `<a class="openInButton" href="http://www.google.com/maps/place/${properties.raw_coordinates[1]},${properties.raw_coordinates[0]}">Open in Maps</a> `;
+    }
+    openInContent = openInContent + `<a class="openInButton" href="https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}">Open in webFIS</a>`;
+
     content = `
       <div class="trainEntryDiv" id="${properties.train_id}" style="display:${filter(properties.train_id) ? "" : "none"}; line-height: 180%;">
+        <div class="openInWrapper"> 
+          ${openInContent}
+        </div>
         <i> ${tenantContent} </i> <br>
         <div style="display:flex; align-items:center"> ${lineNumberSvg} <span class="trainNumber"> ${properties.train_number} </span> <span class="trainState"> ${properties.state} </span> <span class="trainEvent"> ${eventDecode} </span> </div>
         <b>timestamp:</b> ${new Date(properties.timestamp)} <br>
+        ${formationContent}
       </div>`;
   }
 

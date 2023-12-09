@@ -43,13 +43,38 @@
     --color-db-blue-600:#0c3992;
     --color-db-blue-400:#347de0;
     --color-db-cyan-500:#309fd1;
+
+    --body-color:var(--color-db-cool-grey-100);
+
+    --elevation-bg:var(--color-db-cool-grey-800-rgb);
+    --elevation-00dp-bg:rgb(var(--elevation-bg)/0);
+    --elevation-01dp-bg:rgb(var(--elevation-bg)/.007);
+    --elevation-02dp-bg:rgb(var(--elevation-bg)/.013);
+    --elevation-03dp-bg:rgb(var(--elevation-bg)/.02);
+    --elevation-04dp-bg:rgb(var(--elevation-bg)/.027);
+    --elevation-06dp-bg:rgb(var(--elevation-bg)/.04);
+    --elevation-08dp-bg:rgb(var(--elevation-bg)/.053);
+    --elevation-12dp-bg:rgb(var(--elevation-bg)/.08);
+    --elevation-16dp-bg:rgb(var(--elevation-bg)/.107);
+    --elevation-24dp-bg:rgb(var(--elevation-bg)/.16);
+    --elevation-32dp-bg:rgb(var(--elevation-bg)/.213);
+    --elevation-40dp-bg:rgb(var(--elevation-bg)/.267);
+
+    --elevation-shadow:175 180 187;
+    
+    @media(prefers-color-scheme:dark) {
+        --body-color:var(--color-db-cool-grey-700);
+        --elevation-bg:255 255 255;
+        --elevation-shadow:0 0 0;
+    }
 }
+
 
 body {
     font-family: sans-serif;
     padding: 0;
     margin: 0;
-    background-color: light-dark(white, var(--color-db-cool-grey-700));
+    background-color: var(--body-color);
 }
 
 .trainEntryDiv {
@@ -82,4 +107,31 @@ body {
     padding: 3px;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.openInButton {
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--body-color);
+    border: 1px solid;
+    border-color: var(--elevation-16dp-bg);
+    transition: transform .3s ease, box-shadow .3s ease;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.openInButton:hover {
+    box-shadow: 0 2.75px 3.87px -1.75px rgb(var(--elevation-shadow)/.2),0 6px 9.498px .75px rgb(var(--elevation-shadow)/.14),0 2.25px 11.496px 2px rgb(var(--elevation-shadow)/.12);
+    transform: translate(0,-.1rem);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.openInWrapper {
+    float:right;
+}
+
+.formationContainer {
+    overflow-x: scroll;
 }
