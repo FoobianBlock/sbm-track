@@ -199,16 +199,26 @@ function drawTrain(train) {
 
     let formationContent = "";
     if(properties.rake != null) {
+      formationContent = `<div class="formationContainer">`
+      
       properties.rake.split(";").forEach(element => {
-        
+        if(element.startsWith("94800423")) {
+          formationContent += `
+            <div style="height:100%;">
+              <img src="img/ET423.png" style="height:3.33em; margin-right:-10px;">
+              <p style="text-align:center; margin:0;">${formatUIC(element)}</p>
+            </div>`;
+        }
       });
+
+      formationContent += `</div>`;
     }
 
     let openInContent = "";
     if(properties.raw_coordinates != null) {
-      openInContent = openInContent + `<a class="openInButton" href="http://www.google.com/maps/place/${properties.raw_coordinates[1]},${properties.raw_coordinates[0]}">Open in Maps</a> `;
+      openInContent += `<a class="openInButton" href="http://www.google.com/maps/place/${properties.raw_coordinates[1]},${properties.raw_coordinates[0]}">Open in Maps</a> `;
     }
-    openInContent = openInContent + `<a class="openInButton" href="https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}">Open in webFIS</a>`;
+    openInContent += `<a class="openInButton" href="https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}">Open in webFIS</a>`;
 
     content = `
       <div class="trainEntryDiv" id="${properties.train_id}" style="display:${filter(properties.train_id) ? "" : "none"}; line-height: 180%;">
@@ -244,3 +254,18 @@ function filter(id) {
 
   return false;
 }
+
+function formatUIC(uic) {  
+  uic = uic.insert_at(11, "-");
+  uic = uic.insert_at(8, " ");
+  uic = uic.insert_at(5, " ");
+  uic = uic.insert_at(4, " ");
+  return uic;
+}
+
+String.prototype.insert_at=function(index, string)
+{   
+  return this.substring(0, index) + string + this.substring(index);
+}
+
+updateTrainEntryStyle();

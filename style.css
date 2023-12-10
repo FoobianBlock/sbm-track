@@ -133,5 +133,14 @@ body {
 }
 
 .formationContainer {
+    display: flex;
+    background-color: var(--elevation-16dp-bg);
+    margin-top: .5em;
+    margin-bottom: .5em;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 5.5em;
+    line-height: normal;
     overflow-x: scroll;
+    scrollbar-width: thin;
 }
