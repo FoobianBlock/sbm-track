@@ -237,6 +237,16 @@ function drawTrain(train) {
               </div>`;
             break;
 
+          case "94800424": // ET 424
+            ignoreZeroVehicles = true;
+
+            formationContent += `
+              <div style="height:100%;">
+                <img src="img/ET424.png" style="height:3.33em; margin-right:-10px;">
+                <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
+              </div>`;
+            break;
+
           default: // Generic
             if(element == "0" && ignoreZeroVehicles) { break; }
 
