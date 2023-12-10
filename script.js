@@ -168,7 +168,7 @@ function drawTrain(train) {
     </div>`;
   }
   else {
-    // lineNumberFill default colour = #963833
+    // lineNumberFill default colour = #008e4e
     const lineColor = properties.line == null ? "var(--color-db-cool-grey-600)" : properties.line.color;
     const lineTextColor = properties.line == null ? "white" : properties.line.text_color;
     const lineName = properties.line == null ? 
@@ -254,13 +254,17 @@ function drawTrain(train) {
     }
     openInContent += `<a class="openInButton" href="https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}" target="_blank">Open in webFIS</a>`;
 
+    const trainNumberContent = properties.train_number == null ? 
+      `<i class="trainNumber">${properties.original_train_number}</i>` : 
+      `<span class="trainNumber">${properties.train_number}</span>`;
+
     content = `
       <div class="trainEntryDiv" id="${properties.train_id}" style="display:${filter(properties.train_id) ? "" : "none"}; line-height: 180%;">
         <div class="openInWrapper"> 
           ${openInContent}
         </div>
         <i> ${tenantContent} </i> <br>
-        <div style="display:flex; align-items:center"> ${lineNumberSvg} <span class="trainNumber"> ${properties.train_number} </span> <span class="trainState"> ${properties.state} </span> <span class="trainEvent"> ${eventDecode} </span> </div>
+        <div style="display:flex; align-items:center"> ${lineNumberSvg} ${trainNumberContent} <span class="trainState"> ${properties.state} </span> <span class="trainEvent"> ${eventDecode} </span> </div>
         <b>timestamp:</b> ${new Date(properties.timestamp)} <br>
         ${formationContent}
       </div>`;
