@@ -201,13 +201,47 @@ function drawTrain(train) {
     if(properties.rake != null) {
       formationContent = `<div class="formationContainer">`
       
+      // Ignore elements in rake with UIC "0" as they are part of a recognised multiple unit
+      let ignoreZeroVehicles = false;
+
       properties.rake.split(";").forEach(element => {
-        if(element.startsWith("94800423")) {
-          formationContent += `
-            <div style="height:100%;">
-              <img src="img/ET423.png" style="height:3.33em; margin-right:-10px;">
-              <p style="text-align:center; margin:0;">${formatUIC(element)}</p>
-            </div>`;
+        const trainClass = element.substring(0, 8);
+
+        switch (trainClass) {
+          case "94800423": // ET 423
+            ignoreZeroVehicles = true;
+
+            if(element == "948004232864") {
+              formationContent += `
+              <div style="height:100%;">
+                <img src="img/ET423_286.png" style="height:3.33em; margin-right:-10px;">
+                <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
+              </div>`;
+            }
+            else {
+              formationContent += `
+                <div style="height:100%;">
+                  <img src="img/ET423.png" style="height:3.33em; margin-right:-10px;">
+                  <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
+                </div>`;
+            }
+            break;
+
+          case "94800420": // ET 420
+            ignoreZeroVehicles = true;
+
+            formationContent += `
+              <div style="height:100%;">
+                <img src="img/ET420.png" style="height:3.33em; margin-right:-10px;">
+                <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
+              </div>`;
+            break;
+
+          default: // Generic
+            if(element == "0" && ignoreZeroVehicles) { break; }
+
+            ignoreZeroVehicles = false;
+            break;
         }
       });
 
@@ -216,9 +250,9 @@ function drawTrain(train) {
 
     let openInContent = "";
     if(properties.raw_coordinates != null) {
-      openInContent += `<a class="openInButton" href="http://www.google.com/maps/place/${properties.raw_coordinates[1]},${properties.raw_coordinates[0]}">Open in Maps</a> `;
+      openInContent += `<a class="openInButton" href="http://www.google.com/maps/place/${properties.raw_coordinates[1]},${properties.raw_coordinates[0]}" target="_blank">Open in Maps</a> `;
     }
-    openInContent += `<a class="openInButton" href="https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}">Open in webFIS</a>`;
+    openInContent += `<a class="openInButton" href="https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}" target="_blank">Open in webFIS</a>`;
 
     content = `
       <div class="trainEntryDiv" id="${properties.train_id}" style="display:${filter(properties.train_id) ? "" : "none"}; line-height: 180%;">
