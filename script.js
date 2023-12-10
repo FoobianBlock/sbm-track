@@ -232,7 +232,7 @@ function drawTrain(train) {
 
             formationContent += `
               <div style="height:100%;">
-                <img src="img/ET420.png" style="height:3.33em; margin-right:-10px;">
+                <img src="img/ET420.png" style="height:3.33em; margin-right:-8px;">
                 <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
               </div>`;
             break;
