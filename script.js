@@ -69,15 +69,6 @@ function drawTrain(train) {
     textCol = '#FFFFFF';
   }
 
-  let realtime_text;
-  if(properties.has_realtime)
-  {
-    if (properties.has_realtime_journey)
-      realtime_text = "yes with has_realtime_journey"
-    else
-      realtime_text = "yes without has_realtime_journey"
-  }
-
   let eventDecode;
   if(properties.event != null)
   {
@@ -90,6 +81,12 @@ function drawTrain(train) {
         break;
       case "AN":
         eventDecode = properties.event + " (Ankunft)";
+        break;
+      case "TF":
+        eventDecode = properties.event + " (Türfreigabe)";
+        break;
+      case "SB":
+        eventDecode = properties.event + " (Schließbefehl)";
         break;
       case "UN":
         eventDecode = properties.event + " (Unbekannt)";
@@ -133,6 +130,15 @@ function drawTrain(train) {
   let content = ``;
   
   if(drawDebugStyle) {
+    let realtime_text;
+    if(properties.has_realtime)
+    {
+      if (properties.has_realtime_journey)
+        realtime_text = "yes with has_realtime_journey"
+      else
+        realtime_text = "yes without has_realtime_journey"
+    }
+
     content = `<div class="trainEntryDiv" id="${properties.train_id}" style="background-color:${lineCol}; color:${textCol}; display:${filter(properties.train_id) ? "" : "none"};">
     <div style="padding:0px; margin:0px;">
         ${imageContent}
@@ -214,14 +220,14 @@ function drawTrain(train) {
             if(element == "948004232864") {
               formationContent += `
               <div style="height:100%;">
-                <img src="img/ET423_286.png" style="height:3.33em; margin-right:-10px;">
+                <img src="${properties.state == "BOARDING" ? "img/ET423_286_doorsOpen.png" : "img/ET423_286.png"}" style="height:3.33em; margin-right:-10px;">
                 <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
               </div>`;
             }
             else {
               formationContent += `
                 <div style="height:100%;">
-                  <img src="img/ET423.png" style="height:3.33em; margin-right:-10px;">
+                  <img src="${properties.state == "BOARDING" ? "img/ET423_doorsOpen.png" : "img/ET423.png"}" style="height:3.33em; margin-right:-10px;">
                   <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
                 </div>`;
             }
