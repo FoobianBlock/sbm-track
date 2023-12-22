@@ -126,7 +126,7 @@ function drawTrain(train) {
     container = document.createElement("div");
     container.id = properties.train_id;
 
-    if(properties.rake != null && (properties.rake.includes("948004231833") || properties.rake.includes("948004232864")))
+    if(properties.rake == null || (properties.rake != null && (properties.rake.includes("948004231833") || properties.rake.includes("948004232864"))))
       document.getElementsByClassName("results")[0].prepend(container);
     else
       document.getElementsByClassName("results")[0].append(container);
