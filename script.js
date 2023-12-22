@@ -1,4 +1,5 @@
 let drawDebugStyle = true;
+let socket = null;
 
 class trainEntry {
   constructor(rake, propertiesJson)  {
@@ -7,7 +8,11 @@ class trainEntry {
   }
 };
 
-const socket = new WebSocket('wss://api.geops.io/realtime-ws/v1/?key=5cc87b12d7c5370001c1d655112ec5c21e0f441792cfc2fafe3e7a1e');
+function setupSocket() {
+  socket = new WebSocket('wss://api.geops.io/realtime-ws/v1/?key=5cc87b12d7c5370001c1d655112ec5c21e0f441792cfc2fafe3e7a1e');
+}
+
+setupSocket();
 
 let statusText = document.getElementsByClassName("status")[0];
 let trains = new Map();
