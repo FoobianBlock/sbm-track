@@ -10,44 +10,44 @@ class trainEntry {
 
 function setupSocket() {
   socket = new WebSocket('wss://api.geops.io/realtime-ws/v1/?key=5cc87b12d7c5370001c1d655112ec5c21e0f441792cfc2fafe3e7a1e');
+
+  socket.onopen = function(e) {
+    statusText.innerHTML = "Connected";
+    // Subscribes to the entire world
+    socket.send("BBOX -20037508 -20048966 20037508 20048966 10");
+  };
+    
+  socket.onmessage = function(event) {
+    var wsContent = JSON.parse(event.data).content;
+    
+    if(wsContent && wsContent.properties != undefined) {
+      var train = new trainEntry(wsContent.properties.rake, wsContent.properties);
+      trains.set(wsContent.properties.train_id, train);
+      drawTrain(train);
+    } else console.log(wsContent);
+  };
+    
+  socket.onclose = function(event) {
+    if (event.wasClean) {
+      statusText.innerHTML = `Connection closed with code ${event.code} ${event.reason}`;
+    } else {
+      // e.g. server process killed or network down
+      // event.code is usually 1006 in this case
+      statusText.innerHTML = "Connection died";
+      alert('[close] Connection died');
+    }
+  };
+  
+  socket.onerror = function(error) {
+    statusText.innerHTML = `Error: ${error.message}`;
+    alert(`[error] ${error.message}`);
+  };
 }
 
 setupSocket();
 
 let statusText = document.getElementsByClassName("status")[0];
 let trains = new Map();
-
-socket.onopen = function(e) {
-  statusText.innerHTML = "Connected";
-  // Subscribes to the entire world
-  socket.send("BBOX -20037508 -20048966 20037508 20048966 10");
-};
-  
-socket.onmessage = function(event) {
-  var wsContent = JSON.parse(event.data).content;
-  
-  if(wsContent && wsContent.properties != undefined) {
-    var train = new trainEntry(wsContent.properties.rake, wsContent.properties);
-    trains.set(wsContent.properties.train_id, train);
-    drawTrain(train);
-  } else console.log(wsContent);
-};
-  
-socket.onclose = function(event) {
-  if (event.wasClean) {
-    statusText.innerHTML = `Connection closed with code ${event.code} ${event.reason}`;
-  } else {
-    // e.g. server process killed or network down
-    // event.code is usually 1006 in this case
-    statusText.innerHTML = "Connection died";
-    alert('[close] Connection died');
-  }
-};
-
-socket.onerror = function(error) {
-  statusText.innerHTML = `Error: ${error.message}`;
-  alert(`[error] ${error.message}`);
-};
 
 function forceUpdate() {
   trains.forEach((value, key) => {
