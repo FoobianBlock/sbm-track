@@ -1,5 +1,6 @@
 let drawDebugStyle = true;
 let socket = null;
+let socketPingInterval = -1;
 
 class trainEntry {
   constructor(rake, propertiesJson)  {
@@ -9,12 +10,22 @@ class trainEntry {
 };
 
 function setupSocket() {
+  if(socket != null) {
+    socket.close();
+  }
+
   socket = new WebSocket('wss://api.geops.io/realtime-ws/v1/?key=5cc87b12d7c5370001c1d655112ec5c21e0f441792cfc2fafe3e7a1e');
 
   socket.onopen = function(e) {
     statusText.innerHTML = "Connected";
     // Subscribes to the entire world
     socket.send("BBOX -20037508 -20048966 20037508 20048966 10");
+
+    // Send "PING" every 10 seconds; otherwise timeout after 30 seconds
+    clearInterval(socketPingInterval);
+    socketPingInterval = setInterval(function() {
+      socket.send("PING");
+    }, 10000)
   };
     
   socket.onmessage = function(event) {
