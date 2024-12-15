@@ -14,7 +14,7 @@ function setupSocket() {
     socket.close();
   }
 
-  socket = new WebSocket('wss://api.geops.io/realtime-ws/v1/?key=5cc87b12d7c5370001c1d655112ec5c21e0f441792cfc2fafe3e7a1e');
+  socket = new WebSocket('wss://api.geops.io/realtime-ws/stag/?key=5cc87b12d7c5370001c1d655112ec5c21e0f441792cfc2fafe3e7a1e');
 
   socket.onopen = function(e) {
     statusText.innerHTML = "Connected";
