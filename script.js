@@ -86,31 +86,34 @@ function drawTrain(train) {
   }
 
   let eventDecode;
-  if(properties.event != null)
-  {
-    switch (properties.event) {
-      case "AF":
-        eventDecode = properties.event + " (Abfahrt)";
-        break;
-      case "FA":
-        eventDecode = properties.event + " (Fahrt)";
-        break;
-      case "AN":
-        eventDecode = properties.event + " (Ankunft)";
-        break;
-      case "TF":
-        eventDecode = properties.event + " (Türfreigabe)";
-        break;
-      case "SB":
-        eventDecode = properties.event + " (Schließbefehl)";
-        break;
-      case "UN":
-        eventDecode = properties.event + " (Unbekannt)";
-        break;
-      default:
-        eventDecode = properties.event;
-        break;
-    }
+  switch (properties.event) {
+    case "AF":
+      eventDecode = properties.event + " (Abfahrt)";
+      break;
+    case "FA":
+      eventDecode = properties.event + " (Fahrt)";
+      break;
+    case "AN":
+      eventDecode = properties.event + " (Ankunft)";
+      break;
+    case "TF":
+      eventDecode = properties.event + " (Türfreigabe)";
+      break;
+    case "SB":
+      eventDecode = properties.event + " (Schließbefehl)";
+      break;
+    case "ZT":
+      eventDecode = properties.event + " (Zugtrennung)";
+      break;
+    case "UN":
+      eventDecode = properties.event + " (Unbekannt)";
+      break;
+    case undefined:
+      eventDecode = "?"
+      break;
+    default:
+      eventDecode = properties.event;
+      break;
   }
 
   let imageContent = "";
@@ -296,14 +299,13 @@ function drawTrain(train) {
           ${openInContent}
         </div>
         <i> ${tenantContent} </i> <br>
-        <div style="display:flex; align-items:center"> ${lineNumberSvg} ${trainNumberContent} <span class="trainState"> ${properties.state} </span> <span class="trainEvent"> ${eventDecode} </span> </div>
-        <b>timestamp:</b> ${new Date(properties.timestamp)} <br>
+        <div style="display:flex; align-items:center; margin-top:8px"> ${lineNumberSvg} ${trainNumberContent} <span class="trainState"> ${properties.state} </span> <span class="trainEvent"> ${eventDecode} </span> </div>
+        <b>Last updated:</b> ${new Date(properties.timestamp).toLocaleString()} <br>
         ${formationContent}
       </div>`;
   }
 
   container.outerHTML = content;
-  // console.log(properties.tenant);
 }
 
 function filter(id) {
