@@ -29,13 +29,19 @@ function setupSocket() {
   };
     
   socket.onmessage = function(event) {
-    var wsContent = JSON.parse(event.data).content;
-    
-    if(wsContent && wsContent.properties != undefined) {
-      var train = new trainEntry(wsContent.properties.rake, wsContent.properties);
-      trains.set(wsContent.properties.train_id, train);
-      drawTrain(train);
-    } else console.log(wsContent);
+    var wsMessage = JSON.parse(event.data);
+    var wsContent = wsMessage.content; 
+
+    if (wsMessage.source == "trajectory")
+    {
+      if(wsContent && wsContent.properties != undefined) {
+        let train = new trainEntry(wsContent.properties.rake, wsContent.properties);
+        trains.set(wsContent.properties.train_id, train);
+        drawTrain(train);
+      }
+    }
+    else if (wsMessage.source == "websocket");
+    else console.log(wsContent);
   };
     
   socket.onclose = function(event) {
