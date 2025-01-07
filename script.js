@@ -146,7 +146,7 @@ function drawTrain(train) {
     container = document.createElement("div");
     container.id = properties.train_id;
 
-    if(properties.rake == null || (properties.rake != null && (properties.rake.includes("948004231833") || properties.rake.includes("948004232864") || properties.rake.includes("948004231221"))))
+    if(properties.rake == null || (properties.rake != null && (properties.rake.includes("948004231833") || properties.rake.includes("948004232864") || properties.rake.includes("948004231221") || properties.rake.includes("948004231197") || properties.rake.includes("948004232435"))))
       document.getElementsByClassName("results")[0].prepend(container);
     else
       document.getElementsByClassName("results")[0].append(container);
@@ -242,19 +242,46 @@ function drawTrain(train) {
           case "94800423": // ET 423
             ignoreZeroVehicles = true;
 
-            if(element == "948004232864") {
-              formationContent += `
-              <div style="height:100%;">
-                <img src="${properties.state == "BOARDING" ? "img/ET423_286_doorsOpen.png" : "img/ET423_286.png"}" style="height:3.33em; margin-right:-10px;">
-                <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
-              </div>`;
-            }
-            else {
-              formationContent += `
+            switch (element) {
+              case "948004232864":
+                formationContent += `
                 <div style="height:100%;">
-                  <img src="${properties.state == "BOARDING" ? "img/ET423_doorsOpen.png" : "img/ET423.png"}" style="height:3.33em; margin-right:-10px;">
+                  <img src="${properties.state == "BOARDING" ? "img/ET423_286_doorsOpen.png" : "img/ET423_286.png"}" style="height:3.33em; margin-right:-10px;">
                   <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
                 </div>`;
+                break;
+
+              case "948004232435":
+                formationContent += `
+                <div style="height:100%;">
+                  <img src="${properties.state == "BOARDING" ? "img/ET423_243_doorsOpen.png" : "img/ET423_243.png"}" style="height:3.33em; margin-right:-10px;">
+                  <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
+                </div>`;
+                break;
+
+              case "948004231197":
+                formationContent += `
+                <div style="height:100%;">
+                  <img src="${properties.state == "BOARDING" ? "img/ET423_119_doorsOpen.png" : "img/ET423_119.png"}" style="height:3.33em; margin-right:-10px;">
+                  <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
+                </div>`;
+                break;
+
+                case "948004231221":
+                  formationContent += `
+                  <div style="height:100%;">
+                    <img src="${properties.state == "BOARDING" ? "img/ET423_122_doorsOpen.png" : "img/ET423_122.png"}" style="height:3.33em; margin-right:-10px;">
+                    <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
+                  </div>`;
+                  break;
+
+              default:
+                formationContent += `
+                  <div style="height:100%;">
+                    <img src="${properties.state == "BOARDING" ? "img/ET423_doorsOpen.png" : "img/ET423.png"}" style="height:3.33em; margin-right:-10px;">
+                    <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
+                  </div>`;
+                  break;
             }
             break;
 
