@@ -2,6 +2,25 @@ let drawDebugStyle = true;
 let socket = null;
 let socketPingInterval = -1;
 
+// 9480 0 423 183-3 | ehm. 50 Jahre
+//
+// 9480 0 423 286-4 | Zug der Vielfalt
+//
+// 9480 0 423 122-1 | Landesgartenschau
+//
+// 9480 0 423 092-6 | Kleeblatt
+//
+// 9480 0 423 121-3 | Karriere (orange)
+// 9480 0 423 083-5 |
+// 9480 0 423 094-2 |
+// 9480 0 423 119-7 |
+//
+// 9480 0 423 097-5 | Karriere (lila)
+// 9480 0 423 214-6 |
+// 9480 0 423 174-2 |
+// 9480 0 423 243-5 |
+let specialNumbers = [ "948004232864", "948004231221", "948004230926", "948004231213", "948004230835", "948004230942", "948004231197", "948004230975", "948004232146", "948004231742", "948004232435"]
+
 class trainEntry {
   constructor(rake, propertiesJson)  {
     this.rake = rake;
@@ -146,7 +165,9 @@ function drawTrain(train) {
     container = document.createElement("div");
     container.id = properties.train_id;
 
-    if(properties.rake == null || (properties.rake != null && (properties.rake.includes("948004231833") || properties.rake.includes("948004232864") || properties.rake.includes("948004231221") || properties.rake.includes("948004231197") || properties.rake.includes("948004232435"))))
+    let isSpecial = properties.rake != null && (specialNumbers.some((num) => properties.rake.includes(num)))
+
+    if(properties.rake == null || isSpecial)
       document.getElementsByClassName("results")[0].prepend(container);
     else
       document.getElementsByClassName("results")[0].append(container);
@@ -251,18 +272,24 @@ function drawTrain(train) {
                 </div>`;
                 break;
 
+              case "948004230975":
+              case "948004232146":
+              case "948004231742":
               case "948004232435":
                 formationContent += `
                 <div style="height:100%;">
-                  <img src="${properties.state == "BOARDING" ? "img/ET423_243_doorsOpen.png" : "img/ET423_243.png"}" style="height:3.33em; margin-right:-10px;">
+                  <img src="${properties.state == "BOARDING" ? "img/ET423_KarriereB_doorsOpen.png" : "img/ET423_KarriereB.png"}" style="height:3.33em; margin-right:-10px;">
                   <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
                 </div>`;
                 break;
 
+              case "948004231213":
+              case "948004230835":
+              case "948004230942":
               case "948004231197":
                 formationContent += `
                 <div style="height:100%;">
-                  <img src="${properties.state == "BOARDING" ? "img/ET423_119_doorsOpen.png" : "img/ET423_119.png"}" style="height:3.33em; margin-right:-10px;">
+                  <img src="${properties.state == "BOARDING" ? "img/ET423_KarriereA_doorsOpen.png" : "img/ET423_KarriereA.png"}" style="height:3.33em; margin-right:-10px;">
                   <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
                 </div>`;
                 break;
