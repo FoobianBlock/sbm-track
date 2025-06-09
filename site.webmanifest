@@ -1,6 +1,7 @@
 {
   "name": "S-Bahn München Tracker",
   "short_name": "SBM Track",
+  "start_url": "https://foobianblock.github.io/sbm-track/",
   "icons": [
     {
       "src": "icons/web-app-manifest-192x192.png",
