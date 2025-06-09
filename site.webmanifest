@@ -1,0 +1,21 @@
+{
+  "name": "S-Bahn München Tracker",
+  "short_name": "SBM Track",
+  "icons": [
+    {
+      "src": "/icons/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#008e4e",
+  "background_color": "#008e4e",
+  "display": "standalone"
+}
