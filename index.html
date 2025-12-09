@@ -17,20 +17,22 @@
     <meta name="theme-color" content="#008e4e">
 </head>
 <body>
-    <div style="background-image: url('img/banner.jpg'); background-size:cover; background-position-y:54%; top:0px; margin:0; position: sticky; box-shadow: 0px 1px 5px black; display:block; height:110px; color: white;">
-        <h1 style="padding: 10px; margin:0px; text-shadow: 1px 1px 5px black; display:inline-block;">S-Bahn München Tracker</h1> 
-            <i class="status" style="display:inline-block; text-shadow: 1px 1px 5px black;">Connecting...</i>
+    <div style="background-image: url('img/banner.jpg'); background-size:cover; background-position-y:54%; top:0px; margin:0; position: sticky; box-shadow: 0px 1px 5px black; display:block; color: white;">
+        <div style="padding: 10px;">
+            <h1 style="padding-bottom: 5px; padding-right:10px; margin:0px; text-shadow: 1px 1px 5px black; display:inline-block;">S-Bahn München Tracker</h1> 
+            <i class="status" style="display:inline-block; text-shadow: 1px 1px 5px black; padding-bottom: 10px;">Connecting...</i>
             <button style="margin-left: 5px;" onclick="setupSocket()">Reconnect</button>
-        <h5 style="padding-left: 10px; margin:0px; text-shadow: 1px 1px 5px black;">Filters:</h3>
-        <input type="search" class="searchBar" placeholder="Search for UIC number..." style="width:200px; margin-left:10px; margin-bottom:5px;" onkeyup="forceUpdate()">
-        <select class="tenantFilterDropdown" onchange="forceUpdate()">
-            <option value="">All tenets</option>
-            <option value="sbm">S-Bahn München</option>
-            <option value="sbh">S-Bahn Hamburg</option>
-            <option value="sevlive">SEV live</option>
-        </select>
-        <input type="checkbox" id="debugStyle" name="debugStyle" onchange="updateTrainEntryStyle()">
-        <label for="debugStyle" style="text-shadow: 1px 1px 5px black;"> Classic Style</label><br>
+            <h5 style="margin:0px; text-shadow: 1px 1px 5px black;">Filters:</h3>
+            <input type="search" class="searchBar" placeholder="Search for UIC number..." style="width:200px; margin-bottom:5px;" onkeyup="forceUpdate()">
+            <select class="tenantFilterDropdown" onchange="forceUpdate()">
+                <option value="">All tenets</option>
+                <option value="sbm">S-Bahn München</option>
+                <option value="sbh">S-Bahn Hamburg</option>
+                <option value="sevlive">SEV live</option>
+            </select>
+            <input type="checkbox" id="debugStyle" name="debugStyle" style="display:none;" onchange="updateTrainEntryStyle()">
+            <label for="debugStyle" id="debugStyleLabel" style="text-shadow: 1px 1px 5px black; display:none;"> Classic Style</label><br>
+        </div>
     </div>
     <div class="results">
         

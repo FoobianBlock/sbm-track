@@ -1,4 +1,6 @@
-let drawDebugStyle = true;
+const params = new URLSearchParams(document.location.search);
+
+let drawDebugStyle = false;
 let socket = null;
 let socketPingInterval = -1;
 
@@ -398,6 +400,11 @@ function formatUIC(uic) {
 String.prototype.insert_at=function(index, string)
 {   
   return this.substring(0, index) + string + this.substring(index);
+}
+
+if(params.get("debug") == "true") {
+  document.getElementById("debugStyle").style.display = 'revert';
+  document.getElementById("debugStyleLabel").style.display = 'revert';
 }
 
 updateTrainEntryStyle();
