@@ -10,7 +10,7 @@ let socketPingInterval = -1;
 //
 // 9480 0 423 122-1 | Landesgartenschau
 //
-// 9480 0 423 092-6 | Kleeblatt
+// 9480 0 423 092-6 | Smarter
 //
 // 9480 0 423 121-3 | Karriere (orange)
 // 9480 0 423 083-5 |
@@ -115,28 +115,28 @@ function drawTrain(train) {
   let eventDecode;
   switch (properties.event) {
     case "AF":
-      eventDecode = properties.event + " (Abfahrt)";
+      eventDecode = '<span class="trainEvent">' + properties.event + ' (Abfahrt)</span>';
       break;
     case "FA":
-      eventDecode = properties.event + " (Fahrt)";
+      eventDecode = '<span class="trainEvent">' + properties.event + ' (Fahrt)</span>';
       break;
     case "AN":
-      eventDecode = properties.event + " (Ankunft)";
+      eventDecode = '<span class="trainEvent">' + properties.event + ' (Ankunft)</span>';
       break;
     case "TF":
-      eventDecode = properties.event + " (Türfreigabe)";
+      eventDecode = '<span class="trainEvent">' + properties.event + ' (Türfreigabe)</span>';
       break;
     case "SB":
-      eventDecode = properties.event + " (Schließbefehl)";
+      eventDecode = '<span class="trainEvent">' + properties.event + ' (Schließbefehl)</span>';
       break;
     case "ZT":
-      eventDecode = properties.event + " (Zugtrennung)";
+      eventDecode = '<span class="trainEvent">' + properties.event + ' (Zugtrennung)</span>';
       break;
     case "UN":
-      eventDecode = properties.event + " (Unbekannt)";
+      eventDecode = '<span class="trainEvent">' + properties.event + ' (Unbekannt)</span>';
       break;
     case undefined:
-      eventDecode = "?"
+      eventDecode = '<i class="trainEvent">' + properties.state + '</i>';
       break;
     default:
       eventDecode = properties.event;
@@ -214,7 +214,7 @@ function drawTrain(train) {
         <b>original_rake:</b> ${properties.original_rake} <br>
         <b>original_line:</b> ${properties.original_line} <br>
         <b>position_correction:</b> ${properties.position_correction} <br>
-        <b>event:</b> ${eventDecode} <br>
+        <b>event:</b> ${properties.event} <br>
         <b>ride_state:</b> ${properties.ride_state} <br>
         <b>event_delay:</b> ${properties.event_delay} <br><br>
         <a href='https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}'><i>Open in webFIS</i></a>
@@ -304,6 +304,14 @@ function drawTrain(train) {
                   </div>`;
                   break;
 
+                case "948004230926":
+                  formationContent += `
+                  <div style="height:100%;">
+                    <img src="${properties.state == "BOARDING" ? "img/ET423_092_doorsOpen.png" : "img/ET423_092.png"}" style="height:3.33em; margin-right:-10px;">
+                    <p style="text-align:center; margin:0;"> ${formatUIC(element)} </p>
+                  </div>`;
+                  break;
+
               default:
                 formationContent += `
                   <div style="height:100%;">
@@ -361,7 +369,7 @@ function drawTrain(train) {
           ${openInContent}
         </div>
         <i> ${tenantContent} </i> <br>
-        <div style="display:flex; align-items:center; margin-top:8px"> ${lineNumberSvg} ${trainNumberContent} <span class="trainState"> ${properties.state} </span> <span class="trainEvent"> ${eventDecode} </span> </div>
+        <div style="display:flex; align-items:center; margin-top:8px"> ${lineNumberSvg} ${trainNumberContent} <span class="trainEventTag"> <img class="trainState" src="${properties.state == "BOARDING" ? "img/ico_boarding.svg" : "img/ico_driving.svg"}"> ${eventDecode}</span> </div>
         <b>Last updated:</b> ${new Date(properties.timestamp).toLocaleString()} <br>
         ${formationContent}
       </div>`;
