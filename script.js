@@ -226,7 +226,7 @@ function drawTrain(train) {
     const lineColor = properties.line == null ? "var(--color-db-cool-grey-600)" : properties.line.color;
     const lineTextColor = properties.line == null ? "white" : properties.line.text_color;
     const lineName = properties.line == null ? 
-      (properties.original_line == null ? "-" : ("S" + properties.original_line)) : 
+      (properties.original_line == null ? "-" : properties.original_line) : 
       properties.line.name;
 
     lineNumberSvg = `
