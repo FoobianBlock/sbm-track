@@ -93,6 +93,18 @@ body {
     max-width: 20em;
 }
 
+.searchBar::-webkit-input-placeholder {
+    color: var(--color-db-green-300);
+}
+
+.searchBar::-moz-placeholder {
+    color: var(--color-db-green-300);
+}
+
+.searchBar::-ms-placeholder {
+    color: var(--color-db-green-300);
+}
+
 .searchBar::placeholder {
     color: var(--color-db-green-300);
 }
