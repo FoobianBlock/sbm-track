@@ -93,6 +93,10 @@ body {
     max-width: 20em;
 }
 
+.searchBar::placeholder {
+    color: var(--color-db-green-300);
+}
+
 .searchBar:hover, .searchBar:focus,
 .tenantFilterDropdown:hover, .tenantFilterDropdown:focus {
     background-color: var(--color-db-green-600);
