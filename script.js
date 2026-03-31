@@ -379,18 +379,26 @@ function drawTrain(train) {
 }
 
 function filter(id) {
-  var search = document.getElementsByClassName("searchBar")[0].value;
+  var searchUIC = document.getElementById("searchUIC").value.replace(" ", "");
+  var searchTrainNum = document.getElementById("searchTrainNum").value;
   var tenantFilter = document.getElementsByClassName("tenantFilterDropdown")[0].value;
 
   const e = trains.get(id);
 
-  if(e.rake != null && (e.rake === null | e.rake.includes(search))) {
+  var trainNumber = e.propertiesJson.train_number == null ? 
+      e.propertiesJson.original_train_number : e.propertiesJson.train_number;
+
+  if(e.rake != null && (e.rake === null | e.rake.includes(searchUIC))) {
     if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
-      return true;
+      if(trainNumber != null && (trainNumber.toString().startsWith(searchTrainNum) | searchTrainNum === "")) {
+        return true;
+      }
     }
-  } else if(search === "") {
+  } else if(searchUIC === "") {
     if(e.propertiesJson.tenant != null && (e.propertiesJson.tenant == tenantFilter | tenantFilter=="")) {
-      return true;
+      if(trainNumber != null && (trainNumber.toString().startsWith(searchTrainNum) | searchTrainNum === "")) {
+        return true;
+      }
     }
   }
 

@@ -22,16 +22,18 @@
             <h1 style="padding-bottom: 5px; padding-right:10px; margin:0px; text-shadow: 1px 1px 5px black; display:inline-block;">S-Bahn München Tracker</h1> 
             <i class="status" style="display:inline-block; text-shadow: 1px 1px 5px black; padding-bottom: 10px;">Connecting...</i>
             <button style="margin-left: 5px;" onclick="setupSocket()">Reconnect</button>
-            <h5 style="margin:0px; text-shadow: 1px 1px 5px black;">Filters:</h3>
-            <input type="search" class="searchBar" placeholder="Search for UIC number..." style="width:200px; margin-bottom:5px;" onkeyup="forceUpdate()">
-            <select class="tenantFilterDropdown" onchange="forceUpdate()">
-                <option value="">All tenets</option>
-                <option value="sbm">S-Bahn München</option>
-                <option value="sbh">S-Bahn Hamburg</option>
-                <option value="sevlive">SEV live</option>
-            </select>
-            <input type="checkbox" id="debugStyle" name="debugStyle" style="display:none;" onchange="updateTrainEntryStyle()">
-            <label for="debugStyle" id="debugStyleLabel" style="text-shadow: 1px 1px 5px black; display:none;"> Classic Style</label><br>
+                <input type="checkbox" id="debugStyle" name="debugStyle" style="display:none;" onchange="updateTrainEntryStyle()">
+                <label for="debugStyle" id="debugStyleLabel" style="text-shadow: 1px 1px 5px black; display:none;"> Classic Style</label><br>
+            </div>
+            <div style="display: flex; border-bottom: 3px solid #165c27;">                
+                <input type="search" class="searchBar" id="searchUIC" placeholder="Search for UIC number..." onkeyup="forceUpdate()">
+                <input type="search" class="searchBar" id="searchTrainNum" placeholder="Search for train number..." onkeyup="forceUpdate()" inputmode="numeric">
+                <select class="tenantFilterDropdown" style="padding: .5em;" onchange="forceUpdate()">
+                    <option value="">All tenets</option>
+                    <option value="sbm">S-Bahn München</option>
+                    <option value="sbh">S-Bahn Hamburg</option>
+                    <option value="sevlive">SEV live</option>
+                </select>
         </div>
     </div>
     <div class="results">
