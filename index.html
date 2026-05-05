@@ -17,11 +17,11 @@
     <meta name="theme-color" content="#008e4e">
 </head>
 <body>
-    <div style="background-image: url('img/banner.jpg'); background-size:cover; background-position-y:54%; top:0px; margin:0; position: sticky; box-shadow: 0px 1px 5px black; display:block; color: white;">
+    <div id="banner" style="background-image: url('img/banner.jpg'); background-size:cover; background-position-y:54%; top:0px; margin:0; position: sticky; box-shadow: 0px 1px 5px black; display:block; color: white;">
         <div style="padding: 10px;">
             <h1 style="padding-bottom: 5px; padding-right:10px; margin:0px; text-shadow: 1px 1px 5px black; display:inline-block;">S-Bahn München Tracker</h1> 
             <i class="status" style="display:inline-block; text-shadow: 1px 1px 5px black; padding-bottom: 10px;">Connecting...</i>
-            <button style="margin-left: 5px;" onclick="setupSocket()">Reconnect</button>
+            <button id="reconnectButton" style="margin-left: 5px;" onclick="setupSocket()">Reconnect</button>
                 <input type="checkbox" id="debugStyle" name="debugStyle" style="display:none;" onchange="updateTrainEntryStyle()">
                 <label for="debugStyle" id="debugStyleLabel" style="text-shadow: 1px 1px 5px black; display:none;"> Classic Style</label><br>
             </div>

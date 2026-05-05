@@ -160,7 +160,7 @@ body {
 
 .openInButton {
     cursor: pointer;
-    display: inline-block;
+    width: max-content;
     text-decoration: none;
     color: inherit;
     background: var(--body-color);
@@ -169,6 +169,9 @@ body {
     transition: transform .3s ease, box-shadow .3s ease;
     padding-left: 8px;
     padding-right: 8px;
+    padding-top: 0.15em;
+    padding-bottom: 0.15em;
+    line-height: 150%;
 }
 
 .openInButton:hover {
@@ -178,7 +181,29 @@ body {
 }
 
 .openInWrapper {
-    float:right;
+    float: right;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: end;
+    grid-template-columns: repeat(auto-fit, minmax(max-content, 1fr));
+    gap: 5.5px;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 40em) {
+    .openInWrapper {
+        width: 100%;
+        grid-auto-flow: initial;
+        grid-template-columns: repeat(auto-fit, minmax(11em, 1fr));
+    }
+
+    .openInButton {
+        width: revert;
+    }
+
+    .openInButton:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+    }
 }
 
 .formationContainer {
@@ -192,4 +217,10 @@ body {
     line-height: normal;
     overflow-x: scroll;
     scrollbar-width: thin;
+}
+
+@media print {
+    #reconnectButton {
+        display: none;
+    }
 }

@@ -217,7 +217,8 @@ function drawTrain(train) {
         <b>event:</b> ${properties.event} <br>
         <b>ride_state:</b> ${properties.ride_state} <br>
         <b>event_delay:</b> ${properties.event_delay} <br><br>
-        <a href='https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}'><i>Open in webFIS</i></a>
+        <a href='https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}'><i>Open in webFIS</i></a> <br>
+        <a href='https://bahn.expert/details/S ${properties.train_number}/${new Date(properties.timestamp).toISOString()}'><i>Open in bahn.expert</i></a>
       </div>
     </div>`;
   }
@@ -353,11 +354,24 @@ function drawTrain(train) {
       formationContent += `</div>`;
     }
 
+    const displayedTrainNumber = properties.train_number == null ? properties.original_train_number : properties.train_number;
+
     let openInContent = "";
     if(properties.raw_coordinates != null) {
       openInContent += `<a class="openInButton" href="http://www.google.com/maps/place/${properties.raw_coordinates[1]},${properties.raw_coordinates[0]}" target="_blank">Open in Maps</a> `;
     }
-    openInContent += `<a class="openInButton" href="https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}" target="_blank">Open in webFIS</a>`;
+    openInContent += `<a class="openInButton" href="https://foobianblock.github.io/ET423-webFIS/?trainid=${properties.train_id}" target="_blank">Open in webFIS</a> `;
+    if(properties.line != null) {
+      if(properties.line.name.startsWith("Bus")) {
+        openInContent += `<a class="openInButton" href="https://bahn.expert/details/Bus ${displayedTrainNumber}/${new Date(properties.timestamp).toISOString()}" target="_blank">Open in bahn.expert</a>`;
+      }
+      else {
+        openInContent += `<a class="openInButton" href="https://bahn.expert/details/S ${displayedTrainNumber}/${new Date(properties.timestamp).toISOString()}" target="_blank">Open in bahn.expert</a>`;
+      }
+    }
+    else {
+      openInContent += `<a class="openInButton" href="https://bahn.expert/details/${displayedTrainNumber}/${new Date(properties.timestamp).toISOString()}" target="_blank">Open in bahn.expert</a>`;
+    }
 
     const trainNumberContent = properties.train_number == null ? 
       `<i class="trainNumber">${properties.original_train_number}</i>` : 
